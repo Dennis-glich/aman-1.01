@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const AmanApp());
+  runApp(const AplikasiAman());
 }
 
-class AmanApp extends StatelessWidget {
-  const AmanApp({Key? key}) : super(key: key);
+class AplikasiAman extends StatelessWidget {
+  const AplikasiAman({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
