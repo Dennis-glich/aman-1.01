@@ -1,13 +1,11 @@
-// ignore_for_file: library_private_types_in_public_api, always_specify_types
-
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const AmanApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class AmanApp extends StatelessWidget {
+  const AmanApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.deepPurple,
       ),
-      home: const WelcomeScreen(), // Menggunakan tipe publik
+      home: const WelcomeScreen(),
     );
   }
 }
@@ -32,13 +30,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Menunda selama 3 detik, kemudian pindah ke HomeScreen dengan pengecekan mounted
-    Future.delayed(const Duration(seconds: 30), () {
+    // Menunda selama 15 detik, lalu pindah ke HomeScreen
+    Future.delayed(const Duration(seconds: 15), () {
       if (mounted) {
-        // Tambahkan pengecekan ini untuk BuildContext
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
+          MaterialPageRoute(
+              builder: (BuildContext context) => const HomeScreen()),
         );
       }
     });
@@ -50,7 +48,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/bg1.jpg'), // Gambar background
+            image: AssetImage('assets/bg1.jpg'), //background welcome
             fit: BoxFit.cover,
           ),
         ),
@@ -76,14 +74,17 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
+        leading: Builder(
+          builder: (BuildContext context) => IconButton(
+            icon: const Icon(Icons.menu, color: Colors.white), //warna garis 3
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
         ),
       ),
       drawer: Drawer(
@@ -96,8 +97,10 @@ class HomeScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.red[800],
                 ),
-                child:
-                    const Text('Menu', style: TextStyle(color: Colors.white)),
+                child: const Text(
+                  'Menu',
+                  style: TextStyle(color: Colors.white, fontSize: 24),
+                ),
               ),
               ListTile(
                 leading: const Icon(Icons.home, color: Colors.white),
@@ -123,15 +126,17 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       body: Container(
+        width: double.infinity,
+        height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/bg2.jpg'), // Gambar background
+            image: AssetImage('assets/bg2.jpg'), //background home
             fit: BoxFit.cover,
           ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: [
+          children: <Widget>[
             const Padding(
               padding: EdgeInsets.all(20.0),
               child: Text(
@@ -143,29 +148,34 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 20), //tambah jarak antara teks dan tombol
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
-                children: [
+                children: <Widget>[
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red[800], // background color
+                      backgroundColor: Colors.red[800], //background get started
                     ),
-                    child: const Text('Get Started'),
+                    child: const Text('Get Started',
+                        style: TextStyle(
+                            color: Colors.white)), //warna text get started
                   ),
                   const SizedBox(height: 10),
                   OutlinedButton(
                     onPressed: () {},
                     style: OutlinedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      side: const BorderSide(color: Colors.white),
+                      foregroundColor: Colors.white, //warna text sign in
+                      side:
+                          const BorderSide(color: Colors.white), //warna border
                     ),
                     child: const Text('Sign in'),
                   ),
                 ],
               ),
             ),
+            const SizedBox(height: 50), //jarak bagian bawah
           ],
         ),
       ),
