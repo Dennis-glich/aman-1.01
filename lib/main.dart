@@ -48,7 +48,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/bg1.jpg'), //background welcome
+            image: AssetImage('assets/bg1.png'), //background welcome
             fit: BoxFit.cover,
           ),
         ),
@@ -130,7 +130,7 @@ class HomeScreen extends StatelessWidget {
         height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/bg2.jpg'), //background home
+            image: AssetImage('assets/bg2.png'), //background home
             fit: BoxFit.cover,
           ),
         ),
