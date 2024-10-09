@@ -14,7 +14,39 @@ class AplikasiAman extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.deepPurple,
       ),
-      home: const WelcomeScreen(),
+      home: const FixedSizeScreen(),
+    );
+  }
+}
+
+class FixedSizeScreen extends StatelessWidget {
+  const FixedSizeScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: AspectRatio(
+          aspectRatio: 320 / 597, // Rasio aspek tetap 320x597
+          child: Container(
+            width: 320,
+            height: 597,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius:
+                  BorderRadius.circular(20), // Membuat rounded corners
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 10,
+                  offset: const Offset(0, 5), // Efek bayangan halus
+                ),
+              ],
+            ),
+            child: const WelcomeScreen(),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -30,8 +62,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Menunda selama 15 detik, lalu pindah ke HomeScreen
-    Future.delayed(const Duration(seconds: 15), () {
+    // Menunda selama 60 detik, lalu pindah ke HomeScreen
+    Future.delayed(const Duration(seconds: 120), () {
       if (mounted) {
         Navigator.pushReplacement(
           context,
@@ -46,11 +78,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
+        decoration: BoxDecoration(
+          image: const DecorationImage(
             image: AssetImage('assets/bg1.png'), //background welcome
             fit: BoxFit.cover,
           ),
+          borderRadius:
+              BorderRadius.circular(20), // Rounded corners applied here
         ),
         child: const Center(
           child: Text(
@@ -73,110 +107,123 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Builder(
-          builder: (BuildContext context) => IconButton(
-            icon: const Icon(Icons.menu, color: Colors.white), //warna garis 3
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
+    return Center(
+      child: AspectRatio(
+        aspectRatio: 320 / 597,
+        child: Scaffold(
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: Builder(
+              builder: (BuildContext context) => IconButton(
+                icon: const Icon(Icons.menu, color: Colors.white),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              ),
+            ),
           ),
-        ),
-      ),
-      drawer: Drawer(
-        child: Container(
-          color: Colors.red[900],
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.red[800],
-                ),
-                child: const Text(
-                  'Menu',
-                  style: TextStyle(color: Colors.white, fontSize: 24),
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.home, color: Colors.white),
-                title:
-                    const Text('Home', style: TextStyle(color: Colors.white)),
-                onTap: () {},
-              ),
-              ListTile(
-                leading:
-                    const Icon(Icons.app_registration, color: Colors.white),
-                title: const Text('Pendaftaran',
-                    style: TextStyle(color: Colors.white)),
-                onTap: () {},
-              ),
-              ListTile(
-                leading: const Icon(Icons.help, color: Colors.white),
-                title: const Text('Help Desk',
-                    style: TextStyle(color: Colors.white)),
-                onTap: () {},
-              ),
-            ],
-          ),
-        ),
-      ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/bg2.png'), //background home
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.all(20.0),
-              child: Text(
-                'Control your home',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
+          // Drawer hanya akan muncul di area yang ditentukan
+          drawer: SizedBox(
+            width: 240, // Sesuaikan lebar drawer dengan ukuran tetap
+            child: Drawer(
+              child: Container(
+                color: Colors.red[900],
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: <Widget>[
+                    DrawerHeader(
+                      decoration: BoxDecoration(
+                        color: Colors.red[800],
+                      ),
+                      child: const Text(
+                        'Menu',
+                        style: TextStyle(color: Colors.white, fontSize: 24),
+                      ),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.home, color: Colors.white),
+                      title: const Text('Home',
+                          style: TextStyle(color: Colors.white)),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.app_registration,
+                          color: Colors.white),
+                      title: const Text('Pendaftaran',
+                          style: TextStyle(color: Colors.white)),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.help, color: Colors.white),
+                      title: const Text('Help Desk',
+                          style: TextStyle(color: Colors.white)),
+                      onTap: () {},
+                    ),
+                  ],
                 ),
               ),
             ),
-            const SizedBox(height: 20), //tambah jarak antara teks dan tombol
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                children: <Widget>[
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red[800], //background get started
-                    ),
-                    child: const Text('Get Started',
-                        style: TextStyle(
-                            color: Colors.white)), //warna text get started
-                  ),
-                  const SizedBox(height: 10),
-                  OutlinedButton(
-                    onPressed: () {},
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: Colors.white, //warna text sign in
-                      side:
-                          const BorderSide(color: Colors.white), //warna border
-                    ),
-                    child: const Text('Sign in'),
-                  ),
-                ],
+          ),
+          body: Container(
+            width: 320, // Mengunci lebar HomeScreen sesuai dengan WelcomeScreen
+            height:
+                597, // Mengunci tinggi HomeScreen sesuai dengan WelcomeScreen
+            decoration: BoxDecoration(
+              image: const DecorationImage(
+                image: AssetImage('assets/bg2.png'), //background home
+                fit: BoxFit.cover,
               ),
+              borderRadius:
+                  BorderRadius.circular(20), // Rounded corners applied here
             ),
-            const SizedBox(height: 50), //jarak bagian bawah
-          ],
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                const Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Text(
+                    'Control your home',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                    height: 20), //tambah jarak antara teks dan tombol
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Column(
+                    children: <Widget>[
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              Colors.red[800], //background get started
+                        ),
+                        child: const Text('Get Started',
+                            style: TextStyle(color: Colors.white)),
+                      ),
+                      const SizedBox(height: 10),
+                      OutlinedButton(
+                        onPressed: () {},
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Colors.white, //warna text sign in
+                          side: const BorderSide(
+                              color: Colors.white), //warna border
+                        ),
+                        child: const Text('Sign in'),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 50), //jarak bagian bawah
+              ],
+            ),
+          ),
         ),
       ),
     );
