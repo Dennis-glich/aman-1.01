@@ -1,24 +1,32 @@
-name: aman1_01
-description: A new Flutter project.
+name: AplikasiAman
+description: aplikasi untuk monitoring iot
 
-publish_to: 'none'
+publish_to: 'none' # Remove this line if you want to publish to pub.dev
+
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.19.0 <3.0.0"
-  flutter: ">=3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_lints: ^2.0.0 
+
+  cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
 flutter:
-  uses-material-design: true
+
+  uses-material-design: true  # Pastikan ini disetel ke true untuk menggunakan Material Icons
+
   assets:
-    - assets/bg1.png
-    - assets/bg2.png
+    - assets/bg1.png  # Gambar latar belakang 1
+    - assets/bg2.png  # Gambar latar belakang 2
+
+  fonts:
+    - family: HammersmithOne  # Tambahkan font custom jika diperlukan untuk teks
+      fonts:
+        - asset: assets/hammersmith-one/HammersmithOne.ttf
