@@ -33,7 +33,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   void initState() {
     super.initState();
     // Navigasi otomatis ke HomeScreen setelah 3 detik
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 10), () {
       if (mounted) {
         Navigator.pushReplacement(
           context,
@@ -67,7 +67,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 1),
               Text(
                 'Welcome to AMAN',
                 textAlign: TextAlign.center,
@@ -75,7 +75,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   color: Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  height: 1.2,
+                  height: 0,
                 ),
               ),
             ],
@@ -122,26 +122,29 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.all(20.0),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
                 child: Text(
                   'Control your home',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 19,
+                    fontSize: 26,
                     fontWeight: FontWeight.bold,
                   ),
+                  textAlign: TextAlign.center, // Center teks ini juga
                 ),
               ),
-              const Text(
-                'Control all your smart home devices and enjoy your life',
+              SizedBox(height:0.1),
+              Text(
+                'Control all your smart home devices \nand enjoy your life',
+                textAlign: TextAlign.center, // Center teks ini
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 12,
+                  fontSize: 14,
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10), // Mengurangi jarak vertikal
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
@@ -156,20 +159,6 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 14,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    OutlinedButton(
-                      onPressed: () {},
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        side: const BorderSide(color: Colors.white),
-                      ),
-                      child: const Text(
-                        'Sign in',
-                        style: TextStyle(
-                          fontSize: 13,
                         ),
                       ),
                     ),
@@ -212,14 +201,6 @@ class AppDrawer extends StatelessWidget {
                 leading: const Icon(Icons.home, color: Colors.white, size: 24),
                 title: const Text(
                   'Home',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-                onTap: () {},
-              ),
-              ListTile(
-                leading: const Icon(Icons.app_registration, color: Colors.white, size: 24),
-                title: const Text(
-                  'Pendaftaran',
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 onTap: () {},
