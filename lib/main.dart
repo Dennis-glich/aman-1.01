@@ -32,7 +32,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Navigasi otomatis ke HomeScreen setelah 3 detik
+    // Navigasi otomatis ke HomeScreen setelah 10 detik
     Future.delayed(const Duration(seconds: 10), () {
       if (mounted) {
         Navigator.pushReplacement(
@@ -128,13 +128,13 @@ class HomeScreen extends StatelessWidget {
                   'Control your home',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 26,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.center, // Center teks ini juga
                 ),
               ),
-              SizedBox(height:0.1),
+              SizedBox(height: 0.1),
               Text(
                 'Control all your smart home devices \nand enjoy your life',
                 textAlign: TextAlign.center, // Center teks ini
@@ -150,7 +150,14 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => const AuthScreen(),
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red[800],
                       ),
@@ -219,4 +226,161 @@ class AppDrawer extends StatelessWidget {
       ),
     );
   }
+}
+
+class AuthScreen extends StatefulWidget {
+  const AuthScreen({Key? key}) : super(key: key);
+
+  @override
+  _AuthScreenState createState() => _AuthScreenState();
+}
+
+class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  final GoogleSignIn _googleSignIn = GoogleSignIn(); // Instance GoogleSignIn
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _signInWithGoogle() async {
+    try {
+      await _googleSignIn.signIn();
+      // Lakukan navigasi atau tindakan lain setelah login berhasil
+    } catch (error) {
+      print(error); // Tangani error jika terjadi
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          // Bagian atas dengan background
+          Container(
+            height: MediaQuery.of(context).size.height * 0.28,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/smart home oke.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 140.0, left: 16, right: 16),
+              child: Column(
+                children: const [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Let’s get you registered!',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // TabBar untuk pilihan Register dan Sign In
+          TabBar(
+            controller: _tabController,
+            indicatorColor: const Color.fromARGB(255, 104, 4, 4),
+            indicatorWeight: 4,
+            labelColor: const Color.fromARGB(255, 131, 129, 129),
+            unselectedLabelColor: Colors.black,
+            tabs: [
+              Tab(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: const Color.fromARGB(255, 141, 4, 4),
+                  ),
+                  child: const Center(
+                    child: Text('Register'),
+                  ),
+                ),
+              ),
+              Tab(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                  ),
+                  child: const Center(
+                    child: Text('Sign In'),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                // Form Register
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      // Input Fields for Register
+                      // ...
+                    ],
+                  ),
+                ),
+                // Form Sign In
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      // Input Fields for Sign In
+                      // ...
+                      // Social login buttons
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // Logo Google
+                            IconButton(
+                              icon: Image.asset('assets/logo google.png', width: 32, height: 32),
+                              onPressed: _signInWithGoogle, // Login with Google
+                            ),
+                            const SizedBox(width: 20),
+                            // Logo Instagram
+                            IconButton(
+                              icon: Image.asset('assets/logo ig.png', width: 32, height: 32),
+                              onPressed: () {
+                                const url = 'https://www.instagram.com/your_instagram_account/';
+                                launch(url); // Pastikan untuk menambahkan dependency untuk open_url
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+void launch(String url) {
+  // Implementasi untuk membuka URL
 }
