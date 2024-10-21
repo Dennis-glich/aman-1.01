@@ -29,9 +29,8 @@ flutter:
   assets:
     - assets/bg1.png  
     - assets/bg2.png
-    - assets/logo.png
-    - assets/logo ig.png
-    - assets/logo google.png
+    - assets/Aman .PNG
+    - assets/dapur.jpg
     - assets/smart home oke.jpg  
 
   fonts:
