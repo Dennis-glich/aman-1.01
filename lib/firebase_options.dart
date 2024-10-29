@@ -73,6 +73,8 @@ class DefaultFirebaseOptions {
     projectId: 'iot-4f9cc',
     databaseURL: 'https://iot-4f9cc-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'iot-4f9cc.appspot.com',
+    iosClientId: '1036759584405-pc6d5l2gli018bff7cqqmi2ocoerbvg4.apps.googleusercontent.com',
     iosBundleId: 'com.example.aman101',
   );
+
 }
